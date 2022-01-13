@@ -1,0 +1,72 @@
+﻿@using TPANUAL
+@{
+    ViewBag.Title = "Ingresos";
+    Usuario usuario = (Usuario)Session["Usuario"];
+    List<OperacionDeIngreso> operacionesDeIngreso = (List<OperacionDeIngreso>)Session["Ingresos"];
+}
+<div class="content">
+    <div class="row">
+        <div class="col-12">
+            @foreach (OperacionDeIngreso oi in operacionesDeIngreso)
+            {
+                <div class="card card-chart" id=@oi.ID_OperacionDeIngreso>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col">
+                                <h1 class="card-title">
+                                    Ingreso #@oi.ID_OperacionDeIngreso
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pl-3 pr-3">
+                        <div class="row">
+                            <div class="cuadros-texto col-xl-4">
+                                <div class="cuadro-texto alert alert-default" role="alert">
+                                    <h6>Descripción</h6>
+                                    <p>@oi.Descripcion</p>
+                                    <hr>
+                                    <h6>Fecha</h6>
+                                    <p>@oi.Fecha</p>
+                                    <hr>
+                                    <h6>Valor total</h6>
+                                    <p>$@oi.Monto</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-8">
+                                <h2>Operaciones de Egreso asociadas</h2>
+                                <div class="tabla-compras">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="pl-3 pr-3">&nbsp;ID</th>
+                                                <th>Fecha</th>
+                                                <th>Medio de Pago</th>
+                                                <th class="text-right">Valor Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (OperacionDeEgreso oe in oi.EgresosAsociados)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <a class="btn btn-success pl-3 pr-3" href="~/Home/Egresos#@oe.ID_OperacionDeEgreso">
+                                                            @oe.ID_OperacionDeEgreso
+                                                        </a>
+                                                    </td>
+                                                    <td>@oe.Fecha</td>
+                                                    <td>@oe.MedioDePago.TipoPago</td>
+                                                    <td class="text-right"> $@oe.ValorTotal</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

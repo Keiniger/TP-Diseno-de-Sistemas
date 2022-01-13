@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vinculador_Ingresos-Egresos", "Vinculador_Ingresos-Egresos.csproj", "{C96B3BAB-DC25-4FC4-B6E6-A7D08000892A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C96B3BAB-DC25-4FC4-B6E6-A7D08000892A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C96B3BAB-DC25-4FC4-B6E6-A7D08000892A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C96B3BAB-DC25-4FC4-B6E6-A7D08000892A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C96B3BAB-DC25-4FC4-B6E6-A7D08000892A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD5FA111-4339-46CC-BB67-86F2D01BF4AC}
+	EndGlobalSection
+EndGlobal

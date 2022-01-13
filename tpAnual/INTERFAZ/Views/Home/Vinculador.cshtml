@@ -1,0 +1,169 @@
+﻿@using TPANUAL
+@{
+    ViewBag.Title = "Vinculador";
+    Usuario usuario = (Usuario)Session["Usuario"];
+    List<OperacionDeEgreso> operacionesDeEgreso = (List<OperacionDeEgreso>)Session["Egresos"];
+}
+<div class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h1 class="card-title">Vinculador Ingresos/Egresos</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body pl-3 pr-3">
+                    <div class="row">
+                        <div class="col">
+                            <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                                <li class="col-6 text-center nav-item">
+                                    <a class="nav-link active" id="simple-tab" data-toggle="tab" href="#simple" role="tab" aria-controls="simple" aria-selected="true">Simple</a>
+                                </li>
+                                <li class="col-6 text-center nav-item">
+                                    <a class="nav-link" id="mix-tab" data-toggle="tab" href="#mix" role="tab" aria-controls="mix" aria-selected="false">Mix</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="simple" role="tabpanel" aria-labelledby="simple-tab">
+                                    @using (Html.BeginForm("FormVincular", "Vinculador", FormMethod.Post))
+                                    {
+                                        <input name="_IdOrganizacion" value=@usuario.ID_organizacion type="hidden">
+                                        <div class="form-group">
+                                            <div>
+                                                <h6> Periodo de Vinculacion </h6>
+                                                <input class="form-input-tp" type="number" placeholder="Cantidad de dias" name="_PeriodoDeVinculacion" required>
+                                                <div class="mt-3 mb-3">
+                                                    <h6>Tipo de vinculación</h6>
+                                                    <div class="form-check form-check-radio form-check-inline">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" type="radio" name="_TipoVinculador" id="inlineRadio1" value="ovpi" required>
+                                                            Orden Valor Primero Ingreso
+                                                            <span class="form-check-sign"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-radio form-check-inline">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" type="radio" name="_TipoVinculador" id="inlineRadio2" value="ovpe" required>
+                                                            Orden Valor Primero Egreso
+                                                            <span class="form-check-sign"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-radio form-check-inline">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" type="radio" name="_TipoVinculador" id="inlineRadio3" value="fecha" required>
+                                                            Fecha
+                                                            <span class="form-check-sign"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <button class="mt-3 mb-3 btn btn-warning animation-on-hover" type="submit" name="_BotonSubmit" value="desvincular" style="width: 100%;">
+                                                            Desvincular
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <button class="mt-3 mb-3 btn btn-success animation-on-hover" type="submit" name="_BotonSubmit" value="simple"  style="width: 100%;">
+                                                            Vincular
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="tab-pane fade" id="mix" role="tabpanel" aria-labelledby="mix-tab">
+                                    @using (Html.BeginForm("FormVincular", "Vinculador", FormMethod.Post))
+                                    {
+                                        <input name="_IdOrganizacion" value=@usuario.ID_organizacion type="hidden">
+                                        <div class="form-group">
+                                            <h6> Periodo de Vinculacion </h6>
+                                            <input class="form-input-tp" type="number" placeholder="Cantidad de dias" name="_PeriodoDeVinculacion" required>                                            <h6 class="mt-3">Criterio</h6>
+                                            <select class="form-input-tp mb-2" id="_criterio" name="_TipoCriterio">
+                                                <option class="form-input-tp" value="ovpe">
+                                                    Orden Valor Primero Egreso
+                                                </option>
+                                                <option class="form-input-tp" value="ovpi">
+                                                    Orden Valor Primero Ingreso
+                                                </option>
+                                                <option class="form-input-tp" value="fecha">
+                                                    Fecha
+                                                </option>
+                                            </select>
+                                            <div id="NuevoCriterio"></div>
+                                            <div class="col text-center">
+                                                <a class="btn btn-success btn-fab btn-icon btn-round animation-on-hover" onclick="agregarItem(NuevoCriterio)">
+                                                    <i class="fas fa-plus" style="color: white;"></i>
+                                                </a>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <button class="mt-3 mb-3 btn btn-warning animation-on-hover" type="submit" name="_BotonSubmit" value="desvincular" style="width: 100%;">
+                                                        Desvincular
+                                                    </button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button class="mt-3 mb-3  btn btn-success animation-on-hover" type="submit" name="_BotonSubmit" value="mix"  style="width: 100%;">
+                                                        Vincular
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-input-tp {
+        width: 75%;
+        background-color: #27293D;
+        color: #BEBFC5;
+        border: solid;
+        border-width: 1px;
+        border-radius: 2px;
+        border-color: #3D3F51;
+        padding: 5px
+    }
+
+    .tabla-items {
+        max-height: 100px;
+        overflow-y: scroll;
+    }
+</style>
+
+<script type="text/javascript">
+    var ID_Criterio = 0;
+
+    function agregarItem() {
+        document.getElementById('NuevoCriterio').insertAdjacentHTML('beforebegin', `
+            <div id="${ID_Criterio}">
+                <select class="form-input-tp mb-2" id="_criterio" name="_TipoCriterio">
+                    <option class="form-input-tp" value="ovpe"> Orden Valor Primero Egreso</option>
+                    <option class="form-input-tp" value="ovpi"> Orden Valor Primero Ingreso  </option>
+                    <option class="form-input-tp" value="fecha"> Fecha  </option>
+                </select>
+                <a class="mr-5 text-center btn btn-warning btn-fab btn-icon btn-round animation-on-hover" onclick="borrar(${ID_Criterio})">
+                    <i class="fas fa-trash-alt" style="color: white;"></i>
+                </a>
+            </div>
+        `);
+        ID_item++;
+    }
+
+    function borrar(_ID) {
+        document.getElementById(_ID).remove();
+    }
+</script>
+
+
